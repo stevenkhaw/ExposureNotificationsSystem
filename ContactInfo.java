@@ -12,7 +12,7 @@ public class ContactInfo {
     }
 
     public boolean isValid() {
-        if (id < 0 || distance < 0 || time < 0) {
+        if (this.id < 0 || this.distance < 0 || this.time < 0) {
             return false;
         }
 
