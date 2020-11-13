@@ -15,9 +15,7 @@ public class ContactInfo {
         if (id < 0 || distance < 0 || time < 0) {
             return false;
         }
-        
+
         return true;
     }
-
-    
 }
