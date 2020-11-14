@@ -6,6 +6,9 @@
 import java.util.Random;
 import java.util.ArrayList;
 
+/**
+ * 
+ */
 public class Student {
     public int id;
     public int location;
@@ -85,7 +88,7 @@ public class Student {
         }
 
         ArrayList<ContactInfo> output = new ArrayList<ContactInfo>();
-        this.usedIds = server.getInfectedIds();
+        ArrayList<Integer> infectedList = server.getInfectedIds();
 
         for (int i = 0; i < contactHistory.size(); i++) {
             boolean usedCase = false;
@@ -96,10 +99,8 @@ public class Student {
                 usedCase = true;
             }
 
-            for (int j = 0; j < usedIds.size(); j++) {
-                if (contactHistory.get(i).id == usedIds.get(j)) {
-                    idCase = true;
-                }
+            if (infectedList.contains(contactHistory.get(i).id)) {
+                idCase = true;
             }
 
             if (contactHistory.get(i).time >= fromTime) {
@@ -116,35 +117,56 @@ public class Student {
 
     public int riskCheck(Server server, int fromTime, 
             boolean quarantineChoice) {
-        boolean highRiskCase = false;
         ArrayList<ContactInfo> positiveContactInfos =
                 getRecentPositiveContacts(server, fromTime);
         
+        //Checks validity
         if (positiveContactInfos == null) {
             return -1;
         }
         
-        int inContactCount = 0;
-        for (int i = 0; i < contactHistory.size(); i++) {
-            for (int j = 0; j < positiveContactInfos.size(); j++) {
-                if (contactHistory.get(i).id == 
-                        positiveContactInfos.get(j).id) {
-                    if (contactHistory.get(i).distance >= 1) {
-                        contactHistory.get(i).used = true;
-                        this.inQuarantine = true;
-                        return 1;
-                    }
-                    inContactCount++;
-                } 
+        //Assess the risk of infection
+        boolean highRisk = false;
+        boolean changeAll = false;
+        
+        if (positiveContactInfos.size() >= 3) {
+            changeAll = true;
+            highRisk = true;
+        }
+
+        for (int i = 0; i < positiveContactInfos.size(); i++) {
+            if (positiveContactInfos.get(i).distance <= 1) {
+                positiveContactInfos.get(i).used = true;
+                highRisk = true;
             }
 
-            if (inContactCount >= 3) {
-                contactHistory.get(i).used = true;
-                this.inQuarantine = true;
-                return 1;
+            if (changeAll) {
+                positiveContactInfos.get(i).used = true;
             }
         }
         
+        if (highRisk && quarantineChoice) {
+            this.inQuarantine = true;
+            return 1;
+        }
+
+        if (highRisk) {
+            return 1;
+        }
+        
         return 0;
+    }
+
+    public static void main(String[] args) {
+        ContactInfo testContact1 = new ContactInfo(1,5,1);
+        ContactInfo testContact2 = new ContactInfo(2,2,2);
+        Server testServer = new Server();
+        Student me = new Student();
+        testServer.infectedIds.add(testContact1.id);
+        testServer.infectedIds.add(testContact2.id);
+        me.contactHistory.add(testContact1);
+        me.contactHistory.add(testContact2);
+        
+        System.out.println(me.riskCheck(testServer, 0, true));
     }
 }
