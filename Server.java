@@ -1,3 +1,8 @@
+/**
+ * NAME: Steven Khaw
+ * ID: A16669117
+ * EMAIL: skhaw@ucsd.edu
+ */
 import java.util.ArrayList;
 
 public class Server {

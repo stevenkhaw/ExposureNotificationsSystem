@@ -1,3 +1,8 @@
+/**
+ * NAME: Steven Khaw
+ * ID: A16669117
+ * EMAIL: skhaw@ucsd.edu
+ */
 public class ContactInfo {
     public int id;
     public int distance;
