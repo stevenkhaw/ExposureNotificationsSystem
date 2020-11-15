@@ -17,6 +17,9 @@ public class Student {
     public ArrayList<Integer> usedIds;
     public ArrayList<ContactInfo> contactHistory;
 
+    /**
+     * 
+     */
     public Student() {
         this.id = -1;
         this.location = -1;
@@ -26,6 +29,11 @@ public class Student {
         this.contactHistory = new ArrayList<ContactInfo>();
     }
 
+    /**
+     * 
+     * @param newLocation
+     * @return
+     */
     public boolean setLocation(int newLocation) {
         //Checks validity
         if (newLocation < 0) {
@@ -40,6 +48,9 @@ public class Student {
         return false;
     }
 
+    /**
+     * 
+     */
     public void updateId() {
         int maxInt = Integer.MAX_VALUE;
         Random rand = new Random();
@@ -48,6 +59,11 @@ public class Student {
         this.usedIds.add(this.id);
     }
 
+    /**
+     * 
+     * @param info
+     * @return
+     */
     public boolean addContactInfo(ContactInfo info) {
         //Checks validity
         if (info == null || info.isValid() == false) {
@@ -58,6 +74,11 @@ public class Student {
         return true;
     }
 
+    /**
+     * 
+     * @param server
+     * @return
+     */
     public boolean uploadAllUsedIds(Server server) {
         //Checks validity
         if (server == null) {
@@ -67,6 +88,11 @@ public class Student {
         return server.addInfectedIds(usedIds);
     }
 
+    /**
+     * 
+     * @param server
+     * @return
+     */
     public boolean testPositive(Server server) { 
         this.covidPositive = true;
         this.inQuarantine = true;
@@ -79,6 +105,12 @@ public class Student {
         return uploadAllUsedIds(server);
     }
 
+    /**
+     * 
+     * @param server
+     * @param fromTime
+     * @return
+     */
     public ArrayList<ContactInfo> getRecentPositiveContacts(Server server,
             int fromTime) {
         //Check validity
@@ -115,6 +147,13 @@ public class Student {
         return output;
     }
 
+    /**
+     * 
+     * @param server
+     * @param fromTime
+     * @param quarantineChoice
+     * @return
+     */
     public int riskCheck(Server server, int fromTime, 
             boolean quarantineChoice) {
         ArrayList<ContactInfo> positiveContactInfos =
