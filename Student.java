@@ -2,14 +2,29 @@
  * NAME: Steven Khaw
  * ID: A16669117
  * EMAIL: skhaw@ucsd.edu
+ * 
+ * This file contains the Student class for PA6. It contains a simple 
+ * constructor method with the end goal of determining if this student is in
+ * high risk of contracting the infection. There are several instance variables
+ * including: id, location, covidPositive, inQuarantine, userIds, and 
+ * contactHistory.
+ * 
+ * 
+ * method to set the location of this student, method
+ * to update the id with a new random int, method to add student's contact
+ * information to contact history, method to upload all of student's past ids
+ * to server, 
  */
 import java.util.Random;
 import java.util.ArrayList;
 
 /**
- * 
+ * The student class initializes instance variables that hold this student's 
+ * id, location, covidPostiive and inQuarantine boolean values, and 
+ * ArrayLists of Integers and ContactInfo objects.
  */
 public class Student {
+    /** INSTANCE VARIABLES */
     public int id;
     public int location;
     public boolean covidPositive;
@@ -18,7 +33,8 @@ public class Student {
     public ArrayList<ContactInfo> contactHistory;
 
     /**
-     * 
+     * Construct a Student object and sets each instance variable to its 
+     * respective setting.
      */
     public Student() {
         this.id = -1;
@@ -31,8 +47,8 @@ public class Student {
 
     /**
      * 
-     * @param newLocation
-     * @return
+     * @param newLocation integer value of this student's new location
+     * @return boolean value 
      */
     public boolean setLocation(int newLocation) {
         //Checks validity

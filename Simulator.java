@@ -192,9 +192,8 @@ public class Simulator {
      */
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(new File(FILE_NAME));
-        Simulator test = new Simulator(-10);
 
-        /* // Try to read the quarantine choices
+        // Try to read the quarantine choices
         if(!sc.hasNext()) return;
         ArrayList<Integer> quarantineChoices = processIntLine(sc.nextLine());
         printList(QUARANTINE_PROMPT, quarantineChoices);
@@ -229,7 +228,7 @@ public class Simulator {
             time++;
         }
         System.out.printf(FINAL_RESULT_STR, time, totalNumOfNotifications);
-        sc.close(); */
+        sc.close();
     } 
     
      /**
