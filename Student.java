@@ -34,7 +34,7 @@ public class Student {
 
     /**
      * Construct a Student object and sets each instance variable to its 
-     * respective setting.
+     * respective setting
      */
     public Student() {
         this.id = -1;
@@ -48,7 +48,7 @@ public class Student {
     /**
      * 
      * @param newLocation integer value of this student's new location
-     * @return boolean value 
+     * @return boolean value if 
      */
     public boolean setLocation(int newLocation) {
         //Checks validity
@@ -101,7 +101,7 @@ public class Student {
             return false;
         }
 
-        return server.addInfectedIds(usedIds);
+        return server.addInfectedIds(this.usedIds);
     }
 
     /**
