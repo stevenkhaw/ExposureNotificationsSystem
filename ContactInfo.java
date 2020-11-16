@@ -14,6 +14,7 @@
  * each variable.
  */
 public class ContactInfo {
+    /** INSTANCE VARIABLES */
     public int id;
     public int distance;
     public int time;
@@ -34,8 +35,8 @@ public class ContactInfo {
     }
 
     /**
-     * Checks validity of all instance variables in the class, any variable
-     * that is negative is not valid
+     * Checks validity of all instance variables in the class. Any int 
+     * instance variable that is negative is deemed invalid.
      * 
      * @return boolean value dependant on validity of variables
      */
