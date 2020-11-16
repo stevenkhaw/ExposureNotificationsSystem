@@ -32,6 +32,7 @@ public class Server {
      * @return boolean value if input is valid
      */    
     public boolean addInfectedIds(ArrayList<Integer> ids) {
+        
         //Checks validity
         if (ids == null) {
             return false;
@@ -53,7 +54,7 @@ public class Server {
     public ArrayList<Integer> getInfectedIds() {
         ArrayList<Integer> copyInfectedIds = new ArrayList<Integer>();
 
-        //Iterates and appends every element to a new output array
+        //Iterates and appends every element to a new output array, deep copy
         for (int id : this.infectedIds) {
             copyInfectedIds.add(id);
         }

@@ -8,12 +8,6 @@
  * high risk of contracting the infection. There are several instance variables
  * including: id, location, covidPositive, inQuarantine, userIds, and 
  * contactHistory.
- * 
- * 
- * method to set the location of this student, method
- * to update the id with a new random int, method to add student's contact
- * information to contact history, method to upload all of student's past ids
- * to server, 
  */
 import java.util.Random;
 import java.util.ArrayList;
@@ -46,9 +40,10 @@ public class Student {
     }
 
     /**
+     * Updates student's location as long as studen is not in quarantine
      * 
      * @param newLocation integer value of this student's new location
-     * @return boolean value if 
+     * @return boolean value if input is valid
      */
     public boolean setLocation(int newLocation) {
         //Checks validity
@@ -65,24 +60,28 @@ public class Student {
     }
 
     /**
-     * 
+     * Creates a random student id and stores it in instance variable
      */
     public void updateId() {
+        //Initialize intstances
         int maxInt = Integer.MAX_VALUE;
         Random rand = new Random();
 
+        //Creates random int from 0 to the max int value
         this.id = rand.nextInt(maxInt);
         this.usedIds.add(this.id);
     }
 
     /**
+     * Adds student's contactHistory to ArrayList of ContactInfo objects
      * 
-     * @param info
-     * @return
+     * @param info ContactInfo object being tested
+     * @return boolean value if input is valid
      */
     public boolean addContactInfo(ContactInfo info) {
+
         //Checks validity
-        if (info == null || info.isValid() == false) {
+        if (info == null || !info.isValid()) {
             return false;
         }
 
@@ -91,11 +90,13 @@ public class Student {
     }
 
     /**
+     * Uploads students ids onto the Server object
      * 
-     * @param server
-     * @return
+     * @param server Server object being tested
+     * @return boolean value if input is valid
      */
     public boolean uploadAllUsedIds(Server server) {
+
         //Checks validity
         if (server == null) {
             return false;
@@ -105,9 +106,11 @@ public class Student {
     }
 
     /**
+     * Changes covidPositive and inQuarantine instance variables to true while 
+     * also adding this student's used ids onto Server object
      * 
-     * @param server
-     * @return
+     * @param server Server object being tested
+     * @return boolean value if input is valid
      */
     public boolean testPositive(Server server) { 
         this.covidPositive = true;
@@ -122,13 +125,16 @@ public class Student {
     }
 
     /**
+     * Checks whether student has had any positive encounters with someone 
+     * with the infection
      * 
-     * @param server
-     * @param fromTime
-     * @return
+     * @param server Server object being tested
+     * @param fromTime Integer value for time being compared/tested
+     * @return ArrayList of ContactInfo objects that are positive encounters
      */
     public ArrayList<ContactInfo> getRecentPositiveContacts(Server server,
             int fromTime) {
+        
         //Check validity
         if (server == null || fromTime < 0 || 
                 server.getInfectedIds() == null) {
@@ -138,23 +144,28 @@ public class Student {
         ArrayList<ContactInfo> output = new ArrayList<ContactInfo>();
         ArrayList<Integer> infectedList = server.getInfectedIds();
 
+        //Iterates through contactHistory to test for used, id, and time cases
         for (int i = 0; i < contactHistory.size(); i++) {
             boolean usedCase = false;
             boolean idCase = false;
             boolean timeCase = false;
 
+            //True if satifies used conditions
             if (contactHistory.get(i).used == false) {
                 usedCase = true;
             }
 
+            //True if satifies id conditions
             if (infectedList.contains(contactHistory.get(i).id)) {
                 idCase = true;
             }
 
+            //True if satifies time conditions
             if (contactHistory.get(i).time >= fromTime) {
                 timeCase = true;
             }
 
+            //Runs if all boolean cases are true
             if (usedCase == true && idCase == true && timeCase == true) {
                 output.add(contactHistory.get(i));
             }
@@ -164,14 +175,18 @@ public class Student {
     }
 
     /**
+     * Determines student's risk of having infection and gives student the 
+     * option to quarantine or not
      * 
-     * @param server
-     * @param fromTime
-     * @param quarantineChoice
-     * @return
+     * @param server Server object being tested
+     * @param fromTime Integer value for time being compared/tested
+     * @param quarantineChoice Boolean value for student's choice to quarantine
+     * @return Integer value to determine risk of student contracting infection
      */
     public int riskCheck(Server server, int fromTime, 
             boolean quarantineChoice) {
+        
+        //Initializes array being tested
         ArrayList<ContactInfo> positiveContactInfos =
                 getRecentPositiveContacts(server, fromTime);
         
@@ -184,12 +199,15 @@ public class Student {
         boolean highRisk = false;
         boolean changeAll = false;
         
+        //Determines base case of true if more than 3 contacts had infection
         if (positiveContactInfos.size() >= 3) {
             changeAll = true;
             highRisk = true;
         }
 
+        //Iterates through ArrayList 
         for (int i = 0; i < positiveContactInfos.size(); i++) {
+            //Checks distance condition
             if (positiveContactInfos.get(i).distance <= 1) {
                 positiveContactInfos.get(i).used = true;
                 highRisk = true;
@@ -200,6 +218,7 @@ public class Student {
             }
         }
         
+        //Gives student option to quarantine or not
         if (highRisk && quarantineChoice) {
             this.inQuarantine = true;
             return 1;

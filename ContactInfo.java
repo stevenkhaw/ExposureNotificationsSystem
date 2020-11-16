@@ -38,9 +38,11 @@ public class ContactInfo {
      * Checks validity of all instance variables in the class. Any int 
      * instance variable that is negative is deemed invalid.
      * 
-     * @return boolean value dependant on validity of variables
+     * @return boolean value if input is valid
      */
     public boolean isValid() {
+
+        //Checks validity
         if (this.id < 0 || this.distance < 0 || this.time < 0) {
             return false;
         }
