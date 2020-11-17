@@ -151,7 +151,7 @@ public class Student {
             boolean timeCase = false;
 
             //True if satifies used conditions
-            if (contactHistory.get(i).used == false) {
+            if (!contactHistory.get(i).used) {
                 usedCase = true;
             }
 
@@ -166,7 +166,7 @@ public class Student {
             }
 
             //Runs if all boolean cases are true
-            if (usedCase == true && idCase == true && timeCase == true) {
+            if (usedCase && idCase && timeCase) {
                 output.add(contactHistory.get(i));
             }
         }
