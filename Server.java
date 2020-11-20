@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * ids. It has methods to add or get elements in this array.
  */
 public class Server {
+
     /** INSTANCE VARIABLE */
     public ArrayList<Integer> infectedIds;
 

@@ -14,6 +14,7 @@
  * each variable.
  */
 public class ContactInfo {
+    
     /** INSTANCE VARIABLES */
     public int id;
     public int distance;
