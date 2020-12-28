@@ -25,7 +25,7 @@ public class Student {
     public boolean inQuarantine;
     public ArrayList<Integer> usedIds;
     public ArrayList<ContactInfo> contactHistory;
-
+ 
     /**
      * Construct a Student object and sets each instance variable to its 
      * respective setting

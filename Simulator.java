@@ -147,7 +147,7 @@ public class Simulator {
                                                     distance, currentTime);
         return student1.addContactInfo(student2Info)
                && student2.addContactInfo(student1Info);
-    }
+    } 
 
     /**
      * Simulate a single day of moving, infecting, and notifying. 

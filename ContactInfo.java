@@ -50,4 +50,4 @@ public class ContactInfo {
 
         return true;
     }
-}
+} 
